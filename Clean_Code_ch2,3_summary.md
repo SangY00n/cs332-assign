@@ -12,6 +12,8 @@
 
 ### Use Intention-Revealing Names
 
+---
+
 좋은 이름을 고르기 위해서는 시간이 들지만, 좋은 이름을 고르고 나면 많은 시간이 절약된다.
 
 variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는지, 어떻게 사용되는지가 명확해야 한다.
@@ -81,6 +83,8 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 
 ### Avoid Disinformation
 
+---
+
 - 잘못 해석될 수 있는 축약형 사용 피하기
 - `List` 와 같이 programmers에게 특별한 의미를 가지는 단어는 grouping할 때 변수명에 사용하지 않기
     
@@ -90,6 +94,8 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 
 ### Make Meaningful Distinctions
 
+---
+
 - Number-series naming 주의 (a1, a2, .. aN) → intentional naming과 반대된다.
 - Info, Data와 같은 단어는 정확한 개념 구분을 어렵게 만든다.
 - variable name에는 `variable`이, table name에는 `table`이 포함되어서는 안된다.
@@ -98,15 +104,21 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 
 ### Use Pronounceable Names
 
+---
+
 발음할 수 없는 이름으로 지으면, 바보같이 소리내어 읽지 않고는 그것에 대해 토의할 수 없다. 발음할 수 있는 이름을 사용하자.
 
 ### User Searchable Names
+
+---
 
 - constant number는 되도록 새롭게 정의해서 사용한다. → 검색 가능 하도록!
 - single-letter의 이름은 짧은 범위 내의 local variables로만 사용하도록 한다. → 검색하기 어려우므로
 ” *The length of a name should correspond to the size of its scope. ”*
 
 ### Avoid Encodings
+
+---
 
 - Hungarian Notation
     - 이름에 data type을 명시하는 코딩 규칙
@@ -126,11 +138,15 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 
 ### Avoid Mental Mapping
 
+---
+
 - 독자가 머릿속으로 변수명을 이미 알고 있는 단어로 바꾸게 할 만한 변수명을 사용하지 마라.
 - loop 외에는 i, j, k와 같은 single-letter의 변수명을 사용하지 말자.
 - *“The professional programmer understands that **clarity is king**.”*
 
 ### Class Names
+
+---
 
 - Noun or Noun phrase 사용
 - 좋은 예시: `Customer`, `WikiPage`, `Account`, `AddressParser`
@@ -138,6 +154,8 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 - Verb 여서는 안된다.
 
 ### Method Names
+
+---
 
 - Verb or Verb phrase 사용
 - 좋은 예시: `postPayment`, `deletePage`, `save`
@@ -157,15 +175,21 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 
 ### Don’t Be Cute
 
+---
+
 - 자신의 문화에서만 사용되는 joke를 naming에 이용하지 마라.
 
 ### Pick One Word per Concept
+
+---
 
 - 하나의 추상적 개념에는 하나의 단어만 골라서 쭉 사용하라.
     - Example
         - 모든 클래스에서 같은 기능을 하는 method에 대해 fetch, retrieve, get 중 하나만
 
 ### Add Meaningful Context
+
+---
 
 - 적절한 이름의 클래스, 함수, 네임스페이스를 활용하여 context에 맞게 이름들을 배치하라.
 - Example
@@ -239,6 +263,8 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 
 ### Don’t Add Gratuitous Context
 
+---
+
 - 이름이 명확하기만 하면 일반적으로 긴 이름보다 짧은 이름이 더 좋다. 필요 이상으로 이름에 context를 붙이지 말라.
 
 # Chapter 3. Functions
@@ -251,6 +277,8 @@ variable, function, class 등의 이름은 왜 존재하는지, 무엇을 하는
 </aside>
 
 ### Small!
+
+---
 
 function의 규칙은 첫 번째로 function은 작아야 한다는 것이며, 두 번째도 작아야 한다는 것이다.
 
@@ -296,6 +324,8 @@ function의 규칙은 첫 번째로 function은 작아야 한다는 것이며, �
 
 ### Do One Thing
 
+---
+
 하나의 function은 한 가지 일만을 수행하도록 만든다.
 
 > ***“ FUNCTIONS SHOULD DO ONE THING. THEY SHOULD DO IT WELL. THEY SHOULD DO IT ONLY. ”***
@@ -308,6 +338,8 @@ function의 규칙은 첫 번째로 function은 작아야 한다는 것이며, �
 
 ### One Level of Abstraction per Function
 
+---
+
 function이 한 가지 일만을 하게 하려면 function 내에 구문들이 모두 같은 수준으로 abstraction 되어야 한다. 구문 마다 abstraction 수준이 다른 경우 독자로 하여금 특정 표현이 필수적인 개념인지 상세한 설명인지 알기 어렵게 한다.
 
 - Reading Code from Top to Bottom: ***The Stepdown Rule***
@@ -317,15 +349,21 @@ function이 한 가지 일만을 하게 하려면 function 내에 구문들이 �
 
 ### Switch Statements
 
+---
+
 switch 구문은 항상 N개의 일을 하기 때문에 작기 만들기 어렵다.
 
 polymorphism을 이용하여 switch 구문을 low-level 클래스(abstrac class)에 포함시켜 다시는 반복되지 않도록(한번만 작성되도록) 한다.
 
 ### Use Descriptive Names
 
+---
+
 function이 어떤 일을 하는지 function의 이름에서 명확하게 보여주는 것이 좋다.
 
 ### Function Arguments
+
+---
 
 function의 매개변수는 적으면 적을 수록 좋다.
 
@@ -360,6 +398,8 @@ function의 매개변수는 적으면 적을 수록 좋다.
 
 ### Have No Side Effects
 
+---
+
 function이 한 가지 일만을 수행하도록 하면 Side Effect를 막을 수 있다.
 
 - Output Arguments
@@ -368,6 +408,8 @@ function이 한 가지 일만을 수행하도록 하면 Side Effect를 막을 �
     
 
 ### Command Query Separation
+
+---
 
 하나의 function이 object의 state를 변경하고 동시에 object에 대한 정보를 반환하도록 하지마라.
 
@@ -378,6 +420,8 @@ function이 한 가지 일만을 수행하도록 하면 Side Effect를 막을 �
 
 ### Prefer Exceptions to Returning Error Codes
 
+---
+
 Try/Catch 블록을 잘 사용하면 error를 처리하기 위한 코드를 일반 코드와 분리할 수 있다.
 
 - Error Handling Is One Thing
@@ -387,9 +431,13 @@ Try/Catch 블록을 잘 사용하면 error를 처리하기 위한 코드를 일�
 
 ### Don’t Repeat Yourself
 
+---
+
 duplication(중복)은 코드 양을 늘리고 수정을 어렵게 만든다. 또한 누락으로 인한 error를 증가시킨다.
 
 ### Structured Programming
+
+---
 
 Dijkstra’s rules of structured programming 에 따르면, 모든 function과 function 내부에 있는 모든 block은 하나의 입구와 하나의 출구만을 가져야 한다.
 
@@ -400,6 +448,8 @@ Dijkstra’s rules of structured programming 에 따르면, 모든 function과 f
 이것은 함수가 아주 클 때만 이점을 가져온다.
 
 ### How Do You Write Functions Like This?
+
+---
 
 소프트웨어를 작성하는 것은 다른 종류의 글쓰기와 같다.
 
