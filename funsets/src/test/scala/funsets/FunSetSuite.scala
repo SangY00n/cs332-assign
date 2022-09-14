@@ -78,6 +78,7 @@ class FunSetSuite extends FunSuite {
     val s2 = singletonSet(2)
     val s3 = singletonSet(3)
     val s4 = singletonSet(4)
+    val s5 = singletonSet(5)
   }
 
   /**
@@ -111,15 +112,71 @@ class FunSetSuite extends FunSuite {
     }
   }
 
-  test("new tests") {
+  test("intersect contains correct element") {
     new TestSets {
-      val s = union(s1, s2)
-      val i = intersect(s, union(union(s1, s2), s4))
-      printSet(s)
-      assert(contains(i, 4), "contains testing")
+      val set1 = union(union(s1, s2), s3)
+      val set2 = union(union(s3, s4), s5)
 
-      val m = map(s, x => 2*x)
-      printSet(m)
+      val s = intersect(set1, set2)
+      assert(contains(s, 3), "intersect test1")
+      assert(!contains(s, 2), "intersect test2")
+      assert(!contains(s, 5), "intersect test3")
     }
   }
+
+  test("diff contains correct element") {
+    new TestSets {
+      val set1 = union(union(s1, s2), s3)
+      val set2 = union(union(s3, s4), s5)
+
+      val s = diff(set1, set2)
+      assert(contains(s, 1), "diff test1")
+      assert(contains(s, 2), "diff test2")
+      assert(!contains(s, 3), "diff test3")
+    }
+  }
+
+  test("filter test") {
+    new TestSets {
+      val set1 = union(union(s1, s2), s3)
+
+      val s = filter(set1, (x: Int) => Array(1,2) contains x)
+      assert(contains(s, 1), "filter test1")
+      assert(contains(s, 2), "filter test2")
+      assert(!contains(s, 3), "filter test3")
+    }
+  }
+
+  test("forall test") {
+    new TestSets {
+      val set1 = union(union(s1, s2), s3)
+
+      assert(forall(set1, (x: Int) => Array(1, 2, 3, 4) contains x), "forall test1")
+      assert(!forall(set1, (x: Int) => Array(2, 3, 4, 5) contains x), "forall test2")
+    }
+  }
+
+  test("exists test") {
+    new TestSets {
+      val set1 = union(union(union(s1, s2), s3), s4)
+
+      assert(exists(set1, (x: Int) => Array(1, 2, 3, 4) contains x), "exists test1")
+      assert(exists(set1, (x: Int) => Array(4,5,6,7) contains x), "exists test2")
+      assert(!exists(set1, (x: Int) => Array(5,6,7) contains x), "exists test3")
+    }
+  }
+
+  test("map test") {
+    new TestSets {
+      val set1 = union(union(union(s1, s2), s3), s4)
+
+      val s = map(set1, (x: Int) => x*x)
+      assert(forall(s, (x: Int) => Array(1, 4, 9, 16) contains x), "map test1")
+
+      val u = map(set1, (x: Int) => x+5)
+      assert(forall(u, (x: Int) => Array(6, 7, 8, 9) contains x), "map test2")
+    }
+  }
+
+
 }
