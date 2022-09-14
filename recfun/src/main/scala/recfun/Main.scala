@@ -29,9 +29,12 @@ object Main {
       else {
         val h = chars.head
         val t = chars.tail
-        if (h.toInt != 40 && h.toInt != 41) counter(t, count)
-        else if (h.toInt == 40) counter(t, count + 1)
-        else counter(t, count - 1)
+        if (h != '(' && h != ')') counter(t, count)
+        else if (h == '(') counter(t, count + 1)
+        else {
+          if(h==')') count >0 && counter(t, count-1)
+          else counter(t, count)
+        }
       }
     }
     counter(chars, 0)
