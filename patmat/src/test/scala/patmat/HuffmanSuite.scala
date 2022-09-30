@@ -47,9 +47,10 @@ class HuffmanSuite extends FunSuite {
     assert(combine(leaflist) === List(Fork(Leaf('e',1),Leaf('t',2),List('e', 't'),3), Leaf('x',4)))
   }
 
-  test("until from a list of CodeTrees") {
+  test("createCodeTree from a list of chars") {
     new TestTrees {
-      // assert(until(singleton, combine)(List(t1, t2)) != t3)
+      // assert(createCodeTree(string2Chars("aabbbdddd")) != t2)
+
     }
   }
 

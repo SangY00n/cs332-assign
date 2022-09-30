@@ -178,15 +178,8 @@ object Huffman {
    *  - try to find sensible parameter names for `xxx`, `yyy` and `zzz`.
    */
   def until(singleton: List[CodeTree] => Boolean, combine: List[CodeTree] => List[CodeTree])(trees: List[CodeTree]): CodeTree = {
-
-    var cur_trees = trees
-
-    assert(cur_trees.isEmpty)
-
-    while (!singleton(cur_trees)) {
-      cur_trees = combine(cur_trees)
-    }
-    cur_trees.head
+    if(singleton(trees)) trees.head
+    else until(singleton, combine)(combine(trees))
 
   }
 
@@ -196,7 +189,9 @@ object Huffman {
    * The parameter `chars` is an arbitrary text. This function extracts the character
    * frequencies from that text and creates a code tree based on them.
    */
-  def createCodeTree(chars: List[Char]): CodeTree = ???
+  def createCodeTree(chars: List[Char]): CodeTree = {
+    until(singleton, combine)(makeOrderedLeafList(times(chars)))
+  }
 
 
 
