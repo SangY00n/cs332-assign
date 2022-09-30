@@ -12,6 +12,7 @@ class HuffmanSuite extends FunSuite {
   trait TestTrees {
     val t1 = Fork(Leaf('a',2), Leaf('b',3), List('a','b'), 5)
     val t2 = Fork(Fork(Leaf('a',2), Leaf('b',3), List('a','b'), 5), Leaf('d',4), List('a','b','d'), 9)
+    val t3 = makeCodeTree(t1, t2)
   }
 
   test("weight of a larger tree") {
@@ -34,9 +35,22 @@ class HuffmanSuite extends FunSuite {
     assert(makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3))) === List(Leaf('e',1), Leaf('t',2), Leaf('x',3)))
   }
 
+  test("singleton for a list of multiple trees") {
+    new TestTrees {
+      assert(!singleton(List(t1, t2)))
+      assert(singleton(List(t1)))
+    }
+  }
+
   test("combine of some leaf list") {
     val leaflist = List(Leaf('e', 1), Leaf('t', 2), Leaf('x', 4))
     assert(combine(leaflist) === List(Fork(Leaf('e',1),Leaf('t',2),List('e', 't'),3), Leaf('x',4)))
+  }
+
+  test("until from a list of CodeTrees") {
+    new TestTrees {
+      // assert(until(singleton, combine)(List(t1, t2)) != t3)
+    }
   }
 
   test("decode and encode a very short text should be identity") {

@@ -2,6 +2,8 @@ package patmat
 
 import common._
 
+import scala.::
+
 /**
  * Assignment 4: Huffman coding
  *
@@ -26,6 +28,8 @@ object Huffman {
 
   // Part 1: Basics
 
+  // ver1
+  /**
   def weight(tree: CodeTree): Int = tree match {
     case Fork(left, right, chars, weight) => weight
     case Leaf(char, weight) => weight
@@ -35,6 +39,20 @@ object Huffman {
   def chars(tree: CodeTree): List[Char] = tree match {
     case Fork(left, right, chars, weight) => chars
     case Leaf(char, weight) => List(char)
+    case _ => List()
+  }
+  */
+
+  // ver2
+  def weight(tree: CodeTree): Int = tree match {
+    case tree: Fork => tree.weight
+    case tree: Leaf => tree.weight
+    case _ => 0
+  }
+
+  def chars(tree: CodeTree): List[Char] = tree match {
+    case tree: Fork => tree.chars
+    case tree: Leaf => List(tree.char)
     case _ => List()
   }
 
@@ -79,7 +97,18 @@ object Huffman {
    *       println("integer is  : "+ theInt)
    *   }
    */
-  def times(chars: List[Char]): List[(Char, Int)] = ???
+  def times(chars: List[Char]): List[(Char, Int)] = chars match {
+    case List() => Nil
+    case List(char) => List((char, 1))
+    case head :: tail => {
+      val tail_times = times(tail)
+      val dupls = tail_times.filter((el: (Char, Int)) => el._1 == head)
+      val uniqs = tail_times.filter((el: (Char, Int)) => el._1 != head)
+
+      if (dupls.isEmpty) (head, 1) :: uniqs
+      else (head, 1+dupls.head._1) :: uniqs
+    }
+  }
 
   /**
    * Returns a list of `Leaf` nodes for a given frequency table `freqs`.
@@ -88,12 +117,26 @@ object Huffman {
    * head of the list should have the smallest weight), where the weight
    * of a leaf is the frequency of the character.
    */
-  def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = ???
+  def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] = freqs match {
+    case List() => Nil
+    case List(el) => List(new Leaf(el._1, el._2))
+    case head :: tail => {
+      val tail_List = makeOrderedLeafList(tail)
+      val head_Leaf = new Leaf(head._1, head._2)
+      (head_Leaf :: tail_List).sortBy(weight(_))
+    }
+  }
 
   /**
    * Checks whether the list `trees` contains only one single code tree.
    */
-  def singleton(trees: List[CodeTree]): Boolean = ???
+  def singleton(trees: List[CodeTree]): Boolean = trees match {
+    case List() => false
+    case List(t) => true
+    case _ => false
+
+    // case head::tail => tail.isEmpty
+  }
 
   /**
    * The parameter `trees` of this function is a list of code trees ordered
@@ -107,7 +150,15 @@ object Huffman {
    * If `trees` is a list of less than two elements, that list should be returned
    * unchanged.
    */
-  def combine(trees: List[CodeTree]): List[CodeTree] = ???
+  def combine(trees: List[CodeTree]): List[CodeTree] = trees match {
+    case List() => Nil
+    case List(t) => trees
+    case t1 :: t2 :: tail => {
+      // val newTree = Fork(t1, t2, chars(t1) ::: chars(t2), weight(t1)+weight(t2))
+      val newTree = makeCodeTree(t1, t2)
+      (newTree :: tail).sortBy(weight(_))
+    }
+  }
 
   /**
    * This function will be called in the following way:
@@ -126,7 +177,18 @@ object Huffman {
    *    the example invocation. Also define the return type of the `until` function.
    *  - try to find sensible parameter names for `xxx`, `yyy` and `zzz`.
    */
-  def until(xxx: ???, yyy: ???)(zzz: ???): ??? = ???
+  def until(singleton: List[CodeTree] => Boolean, combine: List[CodeTree] => List[CodeTree])(trees: List[CodeTree]): CodeTree = {
+
+    var cur_trees = trees
+
+    assert(cur_trees.isEmpty)
+
+    while (!singleton(cur_trees)) {
+      cur_trees = combine(cur_trees)
+    }
+    cur_trees.head
+
+  }
 
   /**
    * This function creates a code tree which is optimal to encode the text `chars`.
