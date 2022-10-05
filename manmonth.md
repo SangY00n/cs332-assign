@@ -33,7 +33,7 @@
 - 1/4 : Component test and early system test
 - 1/4 : System test, all components in hand
 
-이는 전통적으로 일정을 계획하는 방식과 비교하여 다음과 같이 차이점을 갖는다.
+이는 전통적으로 일정을 계획하는 방식과 비교하여 다음과 같은 차이점을 갖는다.
 
 1. 일반적인 경우보다 Planning에 많은 기간을 할애한다.
 2. 일반적인 경우와 달리 완성된 코드의 디버깅을 위해 전체 일정의 절반을 할애한다.
