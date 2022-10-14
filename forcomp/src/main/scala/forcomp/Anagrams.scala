@@ -40,8 +40,11 @@ object Anagrams {
 
   /** Converts a sentence into its character occurrence list. */
   def sentenceOccurrences(s: Sentence): Occurrences = {
-    val concat = s.map((w: Word) => w).reduceRight(_ ++ _)
-    wordOccurrences(concat)
+    if (s.isEmpty) List()
+    else {
+      val concat = s.map((w: Word) => w).reduceRight(_ ++ _)
+      wordOccurrences(concat)
+    }
   }
 
   /** The `dictionaryByOccurrences` is a `Map` from different occurrences to a sequence of all
@@ -157,6 +160,21 @@ object Anagrams {
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] = {
+    val initOccur = sentenceOccurrences(sentence)
+    def occurAnagrams(occur: Occurrences): List[Sentence] = {
+      if (occur.isEmpty) List(Nil)
+      else {
+        for {
+          combination <- combinations(occur)
+          word <- dictionaryByOccurrences.getOrElse(combination, Nil)
+          tail <- occurAnagrams(subtract(occur, combination))
+        } yield word :: tail
+      }
+    }
+
+    occurAnagrams(initOccur)
+
+  }
 
 }
